@@ -29,7 +29,7 @@
 <nav class="navbar navbar-light bg-light static-top">
     <div class="container">
         <a class="navbar-brand" href="#home">YW</a>
-        <a class="btn btn-primary" href="#login">Sign In</a>
+        <a class="btn btn-primary" href="{{ route('register')  }}">Sign In</a>
     </div>
 </nav>
 
@@ -44,7 +44,7 @@
             <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
                 <center>
                     <div class="col-12 col-md-4">
-                        <button type="submit" class="btn btn-block btn-lg btn-primary">Apply now!</button>
+                        <a href=" {{ route('register') }}" class="btn btn-block btn-lg btn-primary">Apply now!</a>
                     </div>
                 </center>
             </div>
