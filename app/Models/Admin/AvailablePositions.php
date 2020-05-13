@@ -21,4 +21,9 @@ class AvailablePositions extends Model
     protected $fillable = [
         'position_desc',
     ];
+
+    public function getAllAvailablePosition()
+    {
+        return self::all();
+    }
 }

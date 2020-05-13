@@ -14,7 +14,8 @@
 
     <!-- Custom fonts for this template -->
     <link href="{{ asset('applicants/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('applicants/vendor/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('applicants/vendor/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet"
+          type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet"
           type="text/css">
 
@@ -24,14 +25,29 @@
 </head>
 
 <body>
-
+@include('sweetalert::alert')
 <!-- Navigation -->
-<nav class="navbar navbar-light bg-light static-top">
-    <div class="container">
-        <a class="navbar-brand" href="#home">YW</a>
-        <a class="btn btn-primary" href="{{ route('register')  }}">Sign In</a>
-    </div>
-</nav>
+<!-- navbar -->
+<!-- ============================================================== -->
+<div class="dashboard-header">
+    <nav class="navbar navbar-expand-lg bg-white fixed-top">
+        <a class="navbar-brand" href="../index.html">Concept</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto navbar-right-top">
+                <li class="nav-item dropdown nav-user">
+                    <a href=" {{route('login')}} " class="btn btn-primary"> <i class="fa fa-sign-in"> Sign-in</i> </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<!-- ============================================================== -->
+<!-- end navbar -->
+
 
 <!-- Masthead -->
 <header class="masthead text-white text-center">

@@ -32,18 +32,19 @@ class Profile extends Model
      */
     private $id;
 
+
     public function JobHistory(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(JobHistory::class, 'id');
     }
 
 
-    public function saveProfile(User $user, $request): Profile
+    public function saveProfile($user, $request): Profile
     {
         $width = '100';
         $height = '100';
         $model = new self;
-        $model->user_id = $user->id;
+        $model->user_id = $user;
         $model->name = $request->name;
         $model->status = $request->status;
         $model->age = $request->age;
@@ -52,13 +53,24 @@ class Profile extends Model
         $model->salary = $request->salary;
         $model->objectives =  $request->objectives;
         $model->office_desc =  $request->office_desc;
-//        $model->cv = $data['cv']->file('public');
-//        $model->recent = $data['recent']->file('public');
-//        $model->audio = $data['audio']->file('public');
-//        $model->office = $data['office']->file('public');
-//        $model->internet = Storage::putFile('avatars',$data['cv']);
+        $model->background = $request->background;
+        $model->cv = $request->file('cv')->store('public');
+        $model->recent =  $request->file('recent')->store('public');
+        $model->audio =  $request->file('audio')->store('public');
+        $model->office =  $request->file('office')->store('public');
+        $model->internet =  $request->file('internet')->store('public');
         $model->saveOrFail();
 
         return $model;
+    }
+
+    public function getProfileById($id)
+    {
+        return self::find($id);
+    }
+
+    public function getAllProfiles()
+    {
+        return self::where('is_hired', '=', 0)->get();
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,8 +16,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('landing_page');
-});
+})->name('landing.page');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/logout', 'Auth\LoginController@logout')->name('user.logout');
+Route::get('dashboard', 'HomeController@index')->name('home');
+Route::middleware(['auth:web', 'web'])->group(function () {
+
+});
+
+Route::middleware(['auth:web', 'admin'])->group(function () {
+    Route::get('/admin/user/profile/{id}', 'AdminController@showProfile')->name('admin.user.profile');
+    Route::get('/admin/hire/applicant/{id}', 'AdminController@hireApplicant')->name('admin.hire.applicant');
+
+});

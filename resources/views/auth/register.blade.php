@@ -1,13 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+@include('sweetalert::alert')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('create.profile') }}">
+                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
                             <div class="col-md-12 col-lg-12 col-sm-12">
@@ -165,10 +166,10 @@
 
                         <div class="form-group row">
                             <div class="col-md-6">
-                                <label for="rencent" class="col-form-label text-md-right">{{ __('Recent Photo Taken') }}</label>
-                                <input id="rencent" type="file" class="form-control @error('rencent') is-invalid @enderror" name="rencent" value="{{ old('rencent') }}" required autocomplete="rencent">
+                                <label for="recent" class="col-form-label text-md-right">{{ __('Recent Photo Taken') }}</label>
+                                <input id="recent" type="file" class="form-control @error('recent') is-invalid @enderror" name="recent" value="{{ old('recent') }}" required autocomplete="rencent">
 
-                                @error('rencent')
+                                @error('recent')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -247,7 +248,7 @@
                         <div class="form-group row">
                             <div class="col-md-4">
                                 <label for="position" class="col-form-label text-md-right">{{ __('Position') }}</label>
-                                <input id="position" type="text" class="form-control @error('position') is-invalid @enderror" name="position" value="{{ old('position') }}" required autocomplete="position">
+                                <input id="position" type="text" class="form-control @error('position') is-invalid @enderror" name="position[]" value="{{ old('position') }}" required autocomplete="position">
 
                                 @error('position')
                                 <span class="invalid-feedback" role="alert">
@@ -256,20 +257,20 @@
                                 @enderror
                             </div>
                             <div class="col-md-2">
-                                <label for="start" class="col-form-label text-md-right">{{ __('Start') }}</label> <small class="text-muted">(salary)</small>
-                                <input id="start" type="number" class="form-control @error('start') is-invalid @enderror" name="start" value="{{ old('start') }}" required autocomplete="start">
+                                <label for="starting" class="col-form-label text-md-right">{{ __('Start') }}</label> <small class="text-muted">(salary)</small>
+                                <input id="starting" type="number" class="form-control @error('starting') is-invalid @enderror" name="starting[]" value="{{ old('starting') }}" required autocomplete="starting">
 
-                                @error('start')
+                                @error('starting')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                             <div class="col-md-2">
-                                <label for="end" class="col-form-label text-md-right">{{ __('Ending') }}</label> <small class="text-muted">(salary)</small>
-                                <input id="end" type="number" class="form-control @error('end') is-invalid @enderror" name="end" value="{{ old('end') }}" required autocomplete="end">
+                                <label for="ending" class="col-form-label text-md-right">{{ __('End') }}</label> <small class="text-muted">(salary)</small>
+                                <input id="ending" type="number" class="form-control @error('ending') is-invalid @enderror" name="ending[]" value="{{ old('ending') }}" required autocomplete="end">
 
-                                @error('start')
+                                @error('Ending')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -278,7 +279,85 @@
 
                             <div class="col-md-4">
                                 <label for="note" class="col-form-label text-md-right">{{ __('Note') }}</label>
-                                <textarea name="note" id="note" class="form-control @error('note') is-invalid @enderror" value="{{ old('note') }}" required autocomplete="note"></textarea>
+                                <textarea name="note[]" id="note" class="form-control @error('note') is-invalid @enderror" value="{{ old('note') }}" required autocomplete="note"></textarea>
+
+                                @error('note')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                <input id="position" type="text" class="form-control @error('position') is-invalid @enderror" name="position[]" value="{{ old('position') }}" autocomplete="position">
+
+                                @error('position')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-2">
+                                <input id="start" type="number" class="form-control @error('start') is-invalid @enderror" name="start[]" value="{{ old('start') }}" autocomplete="start">
+
+                                @error('start')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-2">
+                                <input id="end" type="number" class="form-control @error('end') is-invalid @enderror" name="end[]" value="{{ old('end') }}" autocomplete="end">
+
+                                @error('start')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-4">
+                                <textarea name="note[]" id="note" class="form-control @error('note') is-invalid @enderror" value="{{ old('note') }}" autocomplete="note"></textarea>
+
+                                @error('note')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-4">
+                                <input id="position" type="text" class="form-control @error('position') is-invalid @enderror" name="position[]" value="{{ old('position') }}" autocomplete="position">
+
+                                @error('position')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-2">
+                                <input id="start" type="number" class="form-control @error('start') is-invalid @enderror" name="start[]" value="{{ old('start') }}" autocomplete="start">
+
+                                @error('start')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-2">
+                                <input id="end" type="number" class="form-control @error('end') is-invalid @enderror" name="end[]" value="{{ old('end') }}" autocomplete="end">
+
+                                @error('start')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-4">
+                                <textarea name="note[]" id="note" class="form-control @error('note') is-invalid @enderror" value="{{ old('note') }}" autocomplete="note"></textarea>
 
                                 @error('note')
                                 <span class="invalid-feedback" role="alert">
@@ -328,7 +407,7 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-md-4">
-                                <input id="position" type="text" class="form-control @error('position') is-invalid @enderror" name="position" value="{{ old('position') }}" autocomplete="position">
+                                <input id="position" type="text" class="form-control @error('position') is-invalid @enderror" name="position[]" value="{{ old('position') }}" autocomplete="position">
 
                                 @error('position')
                                 <span class="invalid-feedback" role="alert">
@@ -337,7 +416,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-2">
-                                <input id="start" type="number" class="form-control @error('start') is-invalid @enderror" name="start" value="{{ old('start') }}" autocomplete="start">
+                                <input id="start" type="number" class="form-control @error('start') is-invalid @enderror" name="start[]" value="{{ old('start') }}" autocomplete="start">
 
                                 @error('start')
                                 <span class="invalid-feedback" role="alert">
@@ -346,7 +425,7 @@
                                 @enderror
                             </div>
                             <div class="col-md-2">
-                                <input id="end" type="number" class="form-control @error('end') is-invalid @enderror" name="end" value="{{ old('end') }}" autocomplete="end">
+                                <input id="end" type="number" class="form-control @error('end') is-invalid @enderror" name="end[]" value="{{ old('end') }}" autocomplete="end">
 
                                 @error('start')
                                 <span class="invalid-feedback" role="alert">
@@ -356,85 +435,7 @@
                             </div>
 
                             <div class="col-md-4">
-                                <textarea name="note" id="note" class="form-control @error('note') is-invalid @enderror" value="{{ old('note') }}" autocomplete="note"></textarea>
-
-                                @error('note')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-4">
-                                <input id="position" type="text" class="form-control @error('position') is-invalid @enderror" name="position" value="{{ old('position') }}" autocomplete="position">
-
-                                @error('position')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="col-md-2">
-                                <input id="start" type="number" class="form-control @error('start') is-invalid @enderror" name="start" value="{{ old('start') }}" autocomplete="start">
-
-                                @error('start')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="col-md-2">
-                                <input id="end" type="number" class="form-control @error('end') is-invalid @enderror" name="end" value="{{ old('end') }}" autocomplete="end">
-
-                                @error('start')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-4">
-                                <textarea name="note" id="note" class="form-control @error('note') is-invalid @enderror" value="{{ old('note') }}" autocomplete="note"></textarea>
-
-                                @error('note')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-4">
-                                <input id="position" type="text" class="form-control @error('position') is-invalid @enderror" name="position" value="{{ old('position') }}" autocomplete="position">
-
-                                @error('position')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="col-md-2">
-                                <input id="start" type="number" class="form-control @error('start') is-invalid @enderror" name="start" value="{{ old('start') }}" autocomplete="start">
-
-                                @error('start')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="col-md-2">
-                                <input id="end" type="number" class="form-control @error('end') is-invalid @enderror" name="end" value="{{ old('end') }}" autocomplete="end">
-
-                                @error('start')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-                            <div class="col-md-4">
-                                <textarea name="note" id="note" class="form-control @error('note') is-invalid @enderror" value="{{ old('note') }}" autocomplete="note"></textarea>
+                                <textarea name="note[]" id="note" class="form-control @error('note') is-invalid @enderror" value="{{ old('note') }}" autocomplete="note"></textarea>
 
                                 @error('note')
                                 <span class="invalid-feedback" role="alert">
