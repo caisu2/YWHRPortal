@@ -3,6 +3,7 @@
 namespace App\Models\User;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\UploadedFile;
 use Kint;
 
 class JobHistory extends Model
@@ -21,33 +22,29 @@ class JobHistory extends Model
      * @var array
      */
     protected $fillable = [
-      'positions', 'starting', 'ending', 'note'
+        'positions', 'starting', 'ending', 'note'
     ];
 
     public function saveJobHistory($profile, $request): JobHistory
     {
-        $model = new self;
-        if (!empty($profile)) {
-            foreach ($request->position as $key => $value) {
-                if ($request->position[$key]){
-                    $model->profile_id = $profile;
-                    $model->position = $request->position[$key];
-                    $model->starting= $request->starting[$key];
-                    $model->ending = $request->ending[$key];
-                    $model->note = $request->note[$key];
-                    $model->saveOrFail();
-                }
+        foreach ($request->position as $key => $value) {
+            if ($request->position[$key]){
+                $model = new self;
+                $model->profile_id = $profile;
+                $model->position = $request->position[$key];
+                $model->starting = $request->starting[$key];
+                $model->ending = $request->ending[$key];
+                $model->note = $request->note[$key];
+                $model->save();
             }
         }
-
         return $model;
 
     }
 
     public function getAllJobHistoryByProfileId($id)
     {
-        $model = self::where('profile_id', '=', $id)->get();
-        return $model;
+        return self::where('profile_id', '=', $id)->get();
     }
 
 }

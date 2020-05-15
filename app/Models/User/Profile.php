@@ -4,9 +4,8 @@ namespace App\Models\User;
 
 use App\User;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class Profile extends Model
 {
@@ -41,9 +40,9 @@ class Profile extends Model
 
     public function saveProfile($user, $request): Profile
     {
-        $width = '100';
-        $height = '100';
-        $model = new self;
+
+
+        $model = new self();
         $model->user_id = $user;
         $model->name = $request->name;
         $model->status = $request->status;
@@ -54,12 +53,12 @@ class Profile extends Model
         $model->objectives =  $request->objectives;
         $model->office_desc =  $request->office_desc;
         $model->background = $request->background;
-        $model->cv = $request->file('cv')->store('public');
-        $model->recent =  $request->file('recent')->store('public');
-        $model->audio =  $request->file('audio')->store('public');
-        $model->office =  $request->file('office')->store('public');
-        $model->internet =  $request->file('internet')->store('public');
-        $model->saveOrFail();
+        $model->cv =  $request->file('cv')->store('public');
+        $model->recent = $this->resizeImage($request->file('recent'))->basename;
+        $model->audio = $this->resizeImage($request->file('audio'))->basename;
+        $model->office = $this->resizeImage($request->file('office'))->basename;
+        $model->internet = $this->resizeImage($request->file('internet'))->basename;
+        $model->save();
 
         return $model;
     }
@@ -72,5 +71,13 @@ class Profile extends Model
     public function getAllProfiles()
     {
         return self::where('is_hired', '=', 0)->get();
+    }
+
+    public function resizeImage($file, $with = 350, $height = 350)
+    {
+        $fileName = $file->getClientOriginalName();
+        $img = Image::make($file->getRealPath())->resize($with, $height);
+        $img->save(public_path().'/storage/'.$fileName, 60);
+        return $img;
     }
 }

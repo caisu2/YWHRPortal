@@ -32,7 +32,7 @@
                         <div id="submenu-2" class="collapse submenu" style="">
                             <ul>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="">Positions </a>
+                                    <a class="nav-link" href=" {{ route('available.position') }} ">Positions </a>
                                 </li>
                             </ul>
                         </div>

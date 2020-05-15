@@ -24,6 +24,19 @@ class AvailablePositions extends Model
 
     public function getAllAvailablePosition()
     {
-        return self::all();
+        return self::where('is_not_available', '=', 0)->get();
+    }
+
+    public function findAvailablePositionById($id)
+    {
+        return self::find($id);
+    }
+
+    public function saveAvailablePosition($request): AvailablePositions
+    {
+        $model = new self;
+        $model->positions_desc = $request->position;
+        $model->saveOrFail();
+        return $model;
     }
 }

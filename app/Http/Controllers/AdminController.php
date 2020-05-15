@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin\AvailablePositions;
 use App\Models\User\JobHistory;
 use App\Models\User\Profile;
 use App\Services\AdminService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
@@ -31,9 +33,6 @@ class AdminController extends Controller
     public function hireApplicant($id)
     {
 
-//        $this->service->hireApplicant(new Profile(), $id);
-//        toast('Update Successfully','success')->autoClose(10000);
-//        return back();
         DB::beginTransaction();
         try {
             $response = $this->service->hireApplicant(new Profile(), $id);
@@ -46,17 +45,51 @@ class AdminController extends Controller
             return back();
         }
 
-//        DB::beginTransaction();
-//
-//        try {
-//            $payeService = new PayeInformationService();
-//            $response = $payeService->insertInformation($request);
-//            DB::commit();
-//            return response()->json($response);
-//        } catch (\Exception $e) {
-//            DB::rollBack();
-//            // return response()->json("Insert Information Error!", [$e->getMessage(), $e->getCode()]);
-//            return response()->json(false);
-//        }
+    }
+
+    public function showAvailablePositions()
+    {
+        $response = $this->service->getAvailablePosition(new AvailablePositions());
+
+        return view('admin.position',[
+           'datas' => $response
+        ]);
+    }
+
+    public function updateAvailablePosition($id)
+    {
+        DB::beginTransaction();
+        try {
+            $response = $this->service->updateAvailablePosition(new AvailablePositions(), $id);
+            DB::commit();
+            toast('Update Successfully','success')->autoClose(3000);
+            return back();
+        }catch (\Exception $e){
+            DB::rollBack();
+            toast('Error! Code:' . $e->getCode(),'error')->autoClose(5000);
+            return back();
+        }
+    }
+
+    public function saveAvialablePosition(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $response = $this->service->saveAvailablePosition(new AvailablePositions(), $request);
+            DB::commit();
+            toast('Data Success with','success')->autoClose(3000);
+            return back();
+        }catch (\Exception $e){
+            DB::rollBack();
+            toast('Error! Code:' . $e->getCode(),'error')->autoClose(5000);
+            return back();
+        }
+    }
+
+    public function showCV(Request $request)
+    {
+        $filename = $this->service->showProfilePdf(new Profile(), $request->id);
+//        var_dump($path);die;
+        return response()->json($filename);
     }
 }
