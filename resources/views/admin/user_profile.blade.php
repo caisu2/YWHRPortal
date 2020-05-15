@@ -1,7 +1,7 @@
 @extends('user.layouts.app')
 
 @section('content')
-
+    @include('common.image_modal')
     <div class="dashboard-wrapper">
         <div class="dashboard-influence">
             <div class="container-fluid dashboard-content">
@@ -97,7 +97,7 @@
                             <div class="card-body">
                                 <div class="d-inline-block">
                                     <h5 class="text-muted">CV</h5>
-                                    <button class="btn btn-outline-dark btn-xs btn-rounded"><i class="fa fa-eye"> SHOW</i> </button>
+                                    <button class="btn btn-outline-dark btn-xs btn-rounded" data-id="{{ $data['profile']->id }}" id="cv"><i class="fa fa-eye"> SHOW</i> </button>
                                 </div>
                                 <div class="float-right icon-circle-medium  icon-box-lg  bg-info-light mt-1">
                                     <i class="fa fa-eye fa-fw fa-sm text-info"></i>
@@ -116,7 +116,7 @@
                             <div class="card-body">
                                 <div class="d-inline-block">
                                     <h5 class="text-muted">About Me</h5>
-                                    <button class="btn btn-outline-dark btn-xs btn-rounded"><i class="fa fa-eye"> SHOW</i> </button>
+                                    <button class="btn btn-outline-dark btn-xs btn-rounded" data-title="About Me" data-toggle="modal" data-target="#imageModal" data-link="{{ $data['profile']->audio}}" id="about_me"><i class="fa fa-eye"> SHOW</i> </button>
                                 </div>
                                 <div class="float-right icon-circle-medium  icon-box-lg  bg-primary-light mt-1">
                                     <i class="fa fa-audio-description fa-fw fa-sm text-primary"></i>
@@ -135,7 +135,7 @@
                             <div class="card-body">
                                 <div class="d-inline-block">
                                     <h5 class="text-muted">Office Setup</h5>
-                                    <button class="btn btn-outline-dark btn-xs btn-rounded"><i class="fa fa-eye"> SHOW</i> </button>
+                                    <button class="btn btn-outline-dark btn-xs btn-rounded" data-title="Office Setup" data-toggle="modal" data-target="#imageModal" data-link="{{ $data['profile']->office }}" id="office_setup"><i class="fa fa-eye"> SHOW</i> </button>
                                 </div>
                                 <div class="float-right icon-circle-medium  icon-box-lg  bg-secondary-light mt-1">
                                     <i class="fa fa-images fa-fw fa-sm text-secondary"></i>
@@ -154,7 +154,7 @@
                             <div class="card-body">
                                 <div class="d-inline-block">
                                     <h5 class="text-muted">Internet Speed</h5>
-                                    <button class="btn btn-outline-dark btn-xs btn-rounded"><i class="fa fa-eye"> SHOW</i> </button>
+                                    <button class="btn btn-outline-dark btn-xs btn-rounded" data-title="Internet Speed" data-toggle="modal" data-target="#imageModal" data-link="{{ $data['profile']->internet }}" id="internet"><i class="fa fa-eye"> SHOW</i> </button>
                                 </div>
                                 <div class="float-right icon-circle-medium  icon-box-lg  bg-brand-light mt-1">
                                     <i class="fa fa-images fa-fw fa-sm text-brand"></i>
@@ -211,7 +211,7 @@
                 <!-- ============================================================== -->
             </div>
         </div>
-        <div class="footer" style="margin-top: 175px" >
+        <div class="footer" style="position: absolute; bottom: 0;">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
