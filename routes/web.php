@@ -14,16 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('landing_page');
-})->name('landing.page');
 
 Auth::routes();
 
+Route::get('/', 'LandingController@landingPage')->name('landing.page');
 Route::post('/logout', 'Auth\LoginController@logout')->name('user.logout');
 Route::get('dashboard', 'HomeController@index')->name('home');
-Route::middleware(['auth:web', 'web'])->group(function () {
-
+Route::middleware(['auth:web', 'user'])->group(function () {
+    Route::get('/user/show/pdf', 'UserController@showCV')->name('user.show.pdf');
+    Route::get('/user/show/audio', 'UserController@showAudio')->name('user.show.audio');
 });
 
 Route::middleware(['auth:web', 'admin'])->group(function () {
@@ -33,4 +32,5 @@ Route::middleware(['auth:web', 'admin'])->group(function () {
     Route::post('/admin/position', 'AdminController@saveAvialablePosition')->name('available.position.post');
     Route::get('/admin/update/position/{id}', 'AdminController@updateAvailablePosition')->name('update.available.position');
     Route::get('/admin/show/pdf', 'AdminController@showCV')->name('admin.show.pdf');
+    Route::get('/admin/show/audio', 'AdminController@showAudio')->name('admin.show.audio');
 });

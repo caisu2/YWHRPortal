@@ -35,7 +35,9 @@
             <a class="navbar-brand" href="{{ url('/') }}">
                 {{ 'YW' }}
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
@@ -43,7 +45,8 @@
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav ml-auto navbar-right-top">
                     <li class="nav-item dropdown nav-user">
-                        <a href=" {{route('login')}} " class="btn btn-primary"> <i class="fa fa-sign-in"> Sign-in</i> </a>
+                        <a href=" {{route('login')}} " class="btn btn-primary"> <i class="fa fa-sign-in"> Sign-in</i>
+                        </a>
                     </li>
                 </ul>
 
@@ -58,7 +61,7 @@
 <!-- Masthead -->
 <header class="masthead text-white text-center">
     <div class="overlay"></div>
-    <div class="container">
+    <div class="container header">
         <div class="row">
             <div class="col-xl-9 mx-auto">
                 <h1 class="mb-5">Talk is Cheap! Show me the code. <i class="fa fa-code"></i></h1>
@@ -74,6 +77,34 @@
     </div>
 </header>
 <!-- Testimonials -->
+<section id="#about-us" class="testimonials text-center bg-light">
+    <div class="container">
+        <h2 class="mb-5">Available Positions</h2>
+        @if($data !== null)
+            <div class="row">
+                @foreach($data as $data)
+                    <div class="col-md-4">
+                        <div class="card shadow p-3 mb-5 rounded" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ $data->positions_desc }}</h5>
+                                <p class="card-text">Where are now hiring for a position
+                                    of {{ $data->positions_desc }}</p>
+                                <a href="{{ route('register') }}" class="btn btn-primary">Apply Now!</a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <div class="row">
+                <p class="font-weight-light mb-0">
+                    No Available Jobs yet! <span class="fa fa-search"> </span>
+                </p>
+            </div>
+        @endif
+    </div>
+
+</section>
 <section id="#about-us" class="testimonials text-center bg-light">
     <div class="container">
         <h2 class="mb-5">About Us</h2>
@@ -92,22 +123,14 @@
             <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
                 <ul class="list-inline mb-2">
                     <li class="list-inline-item">
-                        <a href="#about-us">About</a>
+                        <a href="#about-us">Available Position</a>
                     </li>
                     <li class="list-inline-item">&sdot;</li>
                     <li class="list-inline-item">
-                        <a href="#">Contact</a>
-                    </li>
-                    <li class="list-inline-item">&sdot;</li>
-                    <li class="list-inline-item">
-                        <a href="#">Terms of Use</a>
-                    </li>
-                    <li class="list-inline-item">&sdot;</li>
-                    <li class="list-inline-item">
-                        <a href="#">Privacy Policy</a>
+                        <a href="#">About</a>
                     </li>
                 </ul>
-                <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2019. All Rights Reserved.</p>
+                <p class="text-muted small mb-4 mb-lg-0">&copy; YW HR Portal 2020. All Rights Reserved.</p>
             </div>
             <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
                 <ul class="list-inline mb-0">

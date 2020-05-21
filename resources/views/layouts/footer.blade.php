@@ -19,48 +19,59 @@
 <script src="https://cdn.datatables.net/select/1.2.7/js/dataTables.select.min.js"></script>
 <script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
 <script>
-    $(document).ready(function () {
+    $('#cv').on('click', function () {
         var base_url = '{!! url('/') !!}';
-        $('#imageModal').on('show.bs.modal', function () {
-            var modal = $(this)
-            $('#internet').on('click', function () {
-                var link = $(this).data('link')
-                var title = $(this).data('title')
-                modal.find('.modal-title').text(title)
-                modal.find('.modal-body img').attr('src', base_url +'/storage/'+ link)
-            });
-            $('#about_me').on('click', function () {
-                var link = $(this).data('link')
-                var title = $(this).data('title')
-                modal.find('.modal-title').text(title)
-                modal.find('.modal-body img').attr('src',  base_url +'/storage/'+ link)
-            });
-            $('#office_setup').on('click', function () {
-                var link = $(this).data('link')
-                var title = $(this).data('title')
-                modal.find('.modal-title').text(title)
-                modal.find('.modal-body img').attr('src',  base_url +'/storage/'+ link)
-            });
-            // var button = $(event.relatedTarget)
-            // var link = button.data('link')
-            // var title = button.data('title')
-            // var modal = $(this)
-            // modal.find('.modal-title').text(title)
-            // modal.find('.modal-body img').attr('href', link)
+        var id = $(this).data('id');
+        var access = $(this).data('access');
+        if(access === 0){
+            var url = '{{ route('user.show.pdf') }}'
+        }else{
+            var url = '{{ route('admin.show.pdf') }}'
+        }
+        $.ajax({
+            method: 'GET',
+            url: url,
+            data: {
+                id: id,
+            },
+            success: function (response) {
+                window.open(base_url + '/storage/' + response, '_target')
+            }
         })
-        $('#cv').on('click', function () {
-            var id = $(this).data('id')
-            $.ajax({
-                method: 'GET',
-                url: '{{ route('admin.show.pdf') }}',
-                data: {
-                    id:id,
-                },
-                success:function (response) {
-                    window.open(base_url +'/storage/'+ response,'_target')
-                }
-            })
-        });
+    });
+    $('#audio').on('click', function () {
+        var base_url = '{!! url('/') !!}';
+        var id = $(this).data('id')
+        var access = $(this).data('access');
+        if(access === 0){
+            var url = '{{ route('user.show.audio') }}'
+        }else{
+            var url = '{{ route('admin.show.audio') }}'
+        }
+        $.ajax({
+            method: 'GET',
+            url: url,
+            data: {
+                id: id,
+            },
+            success: function (response) {
+                console.log(response)
+                window.open(base_url + '/public/' + response, '_target')
+            }
+        })
+    });
+    $('#imageModal').on('show.bs.modal', function (event) {
+        var base_url = '{!! url('/') !!}';
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var link = button.data('link')
+        var title = button.data('title')
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text(title)
+        $('#audio').hide();
+        $('#img').show();
+        modal.find('.modal-body img').attr('src', base_url + '/storage/' + link)
     })
 </script>
 </body>

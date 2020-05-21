@@ -39,13 +39,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function saveUserAccount($request)
+    public function saveUserAccount($request): User
     {
         $user = new self;
         $user->username = $request->username;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->saveOrFail();
+        $user->save();
 
         return $user;
     }

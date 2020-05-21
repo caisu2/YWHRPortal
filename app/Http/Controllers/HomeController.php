@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin\AvailablePositions;
 use App\Models\User\Profile;
 use App\Services\HomeService;
 use App\Services\RegisterService;
@@ -31,7 +32,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data = $this->service->dashboardView(new Profile());
+        $data = $this->service->dashboardView(new Profile(), Auth::user()->is_admin);
         return view('dashboard', [
             'datas' => $data
         ]);
