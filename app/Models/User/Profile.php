@@ -55,7 +55,7 @@ class Profile extends Model
         $model->background = $request->background;
         $model->cv =  $request->file('cv')->store('public');
         $model->recent = $this->resizeImage($request->file('recent'))->basename;
-        $model->audio = $this->resizeImage($request->file('audio'))->basename;
+        $model->audio = $this->saveAudio($request->file('audio'));
         $model->office = $this->resizeImage($request->file('office'))->basename;
         $model->internet = $this->resizeImage($request->file('internet'))->basename;
         $model->save();
@@ -66,6 +66,11 @@ class Profile extends Model
     public function getProfileById($id)
     {
         return self::find($id);
+    }
+
+    public function getProfileByUserId($id)
+    {
+        return self::where('user_id', '=', $id)->get();
     }
 
     public function getAllProfiles()
@@ -79,5 +84,14 @@ class Profile extends Model
         $img = Image::make($file->getRealPath())->resize($with, $height);
         $img->save(public_path().'/storage/'.$fileName, 60);
         return $img;
+    }
+
+    public function saveAudio($file)
+    {
+        $random = str::random(10);
+        $filename = $random.'.'. $file->getClientOriginalExtension();
+        $file->move('public/',$filename);
+
+        return $filename;
     }
 }

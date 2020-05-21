@@ -70,19 +70,16 @@ class RegisterController extends Controller
      */
     protected function create(Request $request)
     {
-        $service = new RegisterService();
-        $response = $service->createProfile(new User(), new Profile(), new JobHistory(), $request);
-
         DB::beginTransaction();
         try {
             $service = new RegisterService();
             $response = $service->createProfile(new User(), new Profile(), new JobHistory(), $request);
             DB::commit();
             toast('Data successfully saved!','success')->autoClose(3000);
-            return redirect('login')->with('success', 'Data successfully saved!');
+            return redirect('login');
         }catch (\Exception $e){
             DB::rollBack();
-            toast('Registration Failed','error')->autoClose(3000);
+            toast('Registration Failed',$e->getMessage())->autoClose(3000);
             return back();
         }
     }

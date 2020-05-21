@@ -9,8 +9,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="col-md-12">
-                    <img src="" alt="">
+                <div class="row" id="img">
+                    <div class="col-md-12">
+                        <img src="" alt="">
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

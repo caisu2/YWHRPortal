@@ -10,7 +10,6 @@ use App\User;
 class AdminService
 {
 
-
     public function showProfile(Profile $profile, JobHistory $jobHistory , $id): array
     {
         $modelProfile = $profile->getProfileById($id);
@@ -71,5 +70,10 @@ class AdminService
         $model = $profile->getProfileById($id);
         $response = explode('/', $model->cv);
         return $response[1];
+    }
+
+    public function showProfileAudio(Profile $profile, $id)
+    {
+        return $profile->getProfileById($id)->audio;
     }
 }

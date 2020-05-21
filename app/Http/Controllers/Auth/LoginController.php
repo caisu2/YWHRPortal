@@ -46,7 +46,6 @@ class LoginController extends Controller
     {
         Auth::guard()->logout();
         $request->session()->invalidate();
-        // example:
         toast('Successfully logout','success')->autoClose(3000);
         return redirect()->route('landing.page');
     }

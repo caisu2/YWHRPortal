@@ -235,7 +235,7 @@
                                         yourself)</small>
                                     <input id="audio" type="file"
                                            class="form-control @error('audio') is-invalid @enderror" name="audio"
-                                           value="{{ old('audio') }}" required autocomplete="audio" accept="image/*">
+                                           value="{{ old('audio') }}" required autocomplete="audio" accept="audio/*">
 
                                     @error('rencent')
                                     <span class="invalid-feedback" role="alert">

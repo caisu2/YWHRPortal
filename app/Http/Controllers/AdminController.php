@@ -77,7 +77,7 @@ class AdminController extends Controller
         try {
             $response = $this->service->saveAvailablePosition(new AvailablePositions(), $request);
             DB::commit();
-            toast('Data Success with','success')->autoClose(3000);
+            toast('Data Successfully Saved!','success')->autoClose(3000);
             return back();
         }catch (\Exception $e){
             DB::rollBack();
@@ -90,6 +90,13 @@ class AdminController extends Controller
     {
         $filename = $this->service->showProfilePdf(new Profile(), $request->id);
 //        var_dump($path);die;
+        return response()->json($filename);
+    }
+
+    public function showAudio(Request $request)
+    {
+        $filename = $this->service->showProfileAudio(new Profile(), $request->id);
+
         return response()->json($filename);
     }
 }

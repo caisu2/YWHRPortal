@@ -41,7 +41,7 @@
                                 <div class="row">
                                     <div class="col-xl-2 col-lg-4 col-md-4 col-sm-4 col-12">
                                         <div class="text-center">
-                                            <img src="{{ asset('admin/assets/images/avatar-1.jpg')}}" alt="User Avatar"
+                                            <img src="{{ asset('storage/'.$data['profile']->recent)}}" alt="User Avatar"
                                                  class="rounded-circle user-avatar-xxl">
                                         </div>
                                     </div>
@@ -100,7 +100,7 @@
                                     <button class="btn btn-outline-dark btn-xs btn-rounded" data-id="{{ $data['profile']->id }}" id="cv"><i class="fa fa-eye"> SHOW</i> </button>
                                 </div>
                                 <div class="float-right icon-circle-medium  icon-box-lg  bg-info-light mt-1">
-                                    <i class="fa fa-eye fa-fw fa-sm text-info"></i>
+                                    <i class="fa fa-file-pdf fa-fw fa-sm text-info"></i>
                                 </div>
                             </div>
                         </div>
@@ -116,7 +116,7 @@
                             <div class="card-body">
                                 <div class="d-inline-block">
                                     <h5 class="text-muted">About Me</h5>
-                                    <button class="btn btn-outline-dark btn-xs btn-rounded" data-title="About Me" data-toggle="modal" data-target="#imageModal" data-link="{{ $data['profile']->audio}}" id="about_me"><i class="fa fa-eye"> SHOW</i> </button>
+                                    <button class="btn btn-outline-dark btn-xs btn-rounded" data-id="{{ $data['profile']->id }}" id="audio"><i class="fa fa-eye"> SHOW</i> </button>
                                 </div>
                                 <div class="float-right icon-circle-medium  icon-box-lg  bg-primary-light mt-1">
                                     <i class="fa fa-audio-description fa-fw fa-sm text-primary"></i>

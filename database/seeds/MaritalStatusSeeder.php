@@ -15,6 +15,9 @@ class MaritalStatusSeeder extends Seeder
     {
         $status = [
             [
+                'status_desc' => 'Single'
+            ],
+            [
                 'status_desc' => 'Married'
             ],
             [
@@ -26,9 +29,6 @@ class MaritalStatusSeeder extends Seeder
             [
                 'status_desc' => 'Divorced'
             ],
-            [
-                'status_desc' => 'Single'
-            ]
         ];
 
         DB::table('marital_status')->insert($status);
